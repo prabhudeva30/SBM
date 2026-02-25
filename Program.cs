@@ -13,6 +13,18 @@ builder.Services.AddSwaggerGen();
 // Register the ThumbnailService with the dependency injection container
 builder.Services.AddScoped<IThumbnailService, ThumbnailService>();
 
+// Register CORS policy
+var allowedHosts = builder.Configuration.GetSection("CORS:AllowedOrigins").Get<string>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowedHostsPolicy", policy =>
+    {
+        policy.WithOrigins(allowedHosts!)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>(); // Custom middleware for exception handling
@@ -26,6 +38,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors("AllowedHostsPolicy");
 app.UseAuthorization();
 
 app.MapControllers();

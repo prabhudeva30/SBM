@@ -20,9 +20,7 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetAllThumbnails()
         {
             _logger.LogInformation("Received request to get all thumbnails.");
-            var thumbnails = await _thumbnailService.GetAllThumbNailsAsync();
-            if (thumbnails?.ImageShape is null) return NoContent();
-
+            var thumbnails = await _thumbnailService.GetAllThumbnailsAsync();
             _logger.LogInformation("Successfully retrieved {Count} thumbnails.", thumbnails.ImageShape.Count);
             return Ok(thumbnails);
         }
