@@ -1,4 +1,4 @@
-using Core.ThumbnailService;
+using Core.Services;
 using WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);

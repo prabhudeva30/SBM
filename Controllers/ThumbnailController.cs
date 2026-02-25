@@ -1,4 +1,4 @@
-using Core.ThumbnailService;
+using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
